@@ -13,7 +13,7 @@ function! s:find_lispwords_file() "{{{
       return file
     endif
     if fnamemodify(dir, ':p') == home
-      return
+      return ""
     endif
     let dir = "../" . dir
   endwhile
@@ -48,7 +48,7 @@ function! lispindent#init() "{{{
   if !executable('lispindent')
     " XXX check `lispindent`, and maybe download it?!
     echoerr "lispindent was not found: aborting..."
-  elif !s:find_lispwords_file()
+  elseif s:find_lispwords_file() == ""
     echom ".lispwords file was not found: skipping initialization..."
   else
     " Stop vim lisp mode from getting in the way (especially since
